@@ -19,13 +19,40 @@
   color: azure;
 }
 .block-color {
-  background: #282c34;
-  min-height: 800px;
+ background-image: url('./pexels-eberhard-grossgasteiger-691668.jpg');
+ background-size: cover;
+  min-height: 500px;
+}
+
+.block-colorText{
+  color: rgb(0, 0, 0);
+  font-size: 33px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  padding: 75px;
+  margin-top: 0;
+  margin-bottom: 100px;
 }
 .colorChange {
-  background: #000000;
-  min-height: 800px;
+  background-image: url('./pexels-irina-iriser-1366957.jpg');
+  background-size: cover;
+  min-height: 500px;
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
 }
+
+.colorChangeText{
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 500;
+  padding: 50px;
+  margin-top: 0;
+  margin-bottom: 100px;
+}
+
 .content-state {
   background-color: #87a1a811;
   color: rgb(114, 114, 114);

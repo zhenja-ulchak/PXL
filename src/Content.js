@@ -1,12 +1,12 @@
 import { useState } from "react";
 import AddList from './AddList';
-import SearchList from './Search';
+
 
 import { FaTrashAlt } from "react-icons/fa";
 
 const Content = () => {
 
-    const [items, setItems] = useState([
+    const MainList = [
         {
             id: 1,
             checked: true,
@@ -22,7 +22,9 @@ const Content = () => {
             checked: false,
             item: "Sed accumsan libero quis mi commodo et suscipit enim lacinia."
         }
-    ]);
+    ]
+
+    const [items, setItems] = useState(MainList);
 
     const t = 'HI IT YOUR TIME'
     const r = 'OKEY LET STARTED'
@@ -40,6 +42,7 @@ const Content = () => {
         setItemsSave(listItems)
     }
     const [state, setstate] = useState(false);
+    const [info, setInfo] = useState(false);
     const handleClick = (id) => {
         const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
         setItems(listItems);
@@ -55,7 +58,7 @@ const Content = () => {
     }
     const changeClick = () => {
         const s = 'Over 500+ professionally designed, fully responsive, expertly crafted component examples you can drop into your Tailwind projects and customize to your heart’s content.'
-        return setstate(s)
+        return setInfo(s)
     }
     const handlerSubmit = (e) => {
         e.preventDefault();
@@ -64,32 +67,45 @@ const Content = () => {
         setNewItem('');
     }
 
-const per = () => {
-    
-}
+    const [filteredList, setFilteredList] = useState(MainList);
 
+    const filterBySearch = (event) => {
+        // Access input value
+        const query = event.target.value;
+        // Create copy of item list
+        let updatedList = [...MainList];
+        // Include all elements which includes the search query
+        updatedList = updatedList.filter((item) => {
+            return item.toString().toLowerCase().indexOf(query.toString().toLowerCase()) !== -1;
+        });
+        // Trigger render with updated values
+        setFilteredList(updatedList);
+    };
 
     return (
         <div className={state ? 'block-color' : 'colorChange'}>
             <div className='content conteiner'>
-                <h1 className="content">{state ? t : r}</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra convallis auctor. Sed accumsan libero quis mi commodo et suscipit enim lacinia. Morbi rutrum vulputate est sed faucibus.consectetur adipiscing elit. Aliquam viverra convallis auctor. Sed accumsan libero quis mi commodo et suscipit enim lacinia.</p>
-                <h1 onClick={onPush} className="push" >push</h1>
+                {/* <h1 className="content">{state ? t : r}</h1> */}
+                <p className={state ? 'block-color block-colorText p-0' : 'colorChange colorChangeText p-0'}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam viverra convallis auctor. Sed accumsan libero quis mi commodo et suscipit enim lacinia. Morbi rutrum vulputate est sed faucibus.consectetur adipiscing elit. Aliquam viverra convallis auctor. Sed accumsan libero quis mi commodo et suscipit enim lacinia.</p>
+                <h1 onClick={onPush} className={state ? ' push' : ' pushChange'} >Change</h1>
             </div>
             <p className="content-state conteiner">{state}</p>
             <div className='content conteiner'>
-                <h1 className="content">The title on the article</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Aliquam viverra convallis auctor. Sed accumsan libero
-                    quis mi commodo et suscipit enim lacinia. Morbi rutrum
-                    vulputate est sed faucibus.consectetur adipiscing elit.
-                    Aliquam viverra convallis auctor. Sed accumsan libero
-                    quis mi commodo et suscipit enim lacinia.</p>
-                <h1 onClick={changeClick} className="push" >push2</h1>
-                <SearchList
-                    search={search}
-                    setSearch={setSearch}
-                />
+                
+                <p className={state ? ' block-colorText' : ' colorChangeText'}>{info}</p>
+                <h1 onClick={changeClick} className={state ? ' push' : ' pushChange'} >Mor informations</h1>
+               
+                <div className="search-header">
+                    <div className="search-text">Search:</div>
+                    <input id="search-box" onChange={filterBySearch} />
+                </div>
+                <div id="item-list">
+                    <ol>
+                   { filteredList.item}
+           
+          
+                    </ol>
+                </div>
                 <AddList
                     newItem={newItem}
                     setNewItem={setNewItem}

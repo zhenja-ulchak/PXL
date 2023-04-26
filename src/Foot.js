@@ -2,8 +2,12 @@ import './App.css';
 
 const Footers = () => {
     return (
-        <div className='bg-block'>
-            <h1 className='petro'>not last idia</h1>
+        <div>
+
+
+            <footer>
+                <p className='p-o'>Copyright &copy; 2019 <img src="https://i.ibb.co/QDy827D/ak-logo.png" alt="logo" /> All Rights Reserved.</p>
+            </footer>
         </div>
     )
 }
