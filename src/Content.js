@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddList from './AddList';
 
 
@@ -6,34 +6,57 @@ import { FaTrashAlt } from "react-icons/fa";
 
 const Content = () => {
 
-    const MainList = [
-        {
-            id: 1,
-            checked: true,
-            item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        },
-        {
-            id: 2,
-            checked: false,
-            item: "Aliquam viverra convallis auctor."
-        },
-        {
-            id: 3,
-            checked: false,
-            item: "Sed accumsan libero quis mi commodo et suscipit enim lacinia."
-        }
-    ]
+    // const MainList = [
+    //     {
+    //         id: 1,
+    //         checked: true,
+    //         item: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    //     },
+    //     {
+    //         id: 2,
+    //         checked: false,
+    //         item: "Aliquam viverra convallis auctor."
+    //     },
+    //     {
+    //         id: 3,
+    //         checked: false,
+    //         item: "Sed accumsan libero quis mi commodo et suscipit enim lacinia."
+    //     }
+    // ]
 
-    const [items, setItems] = useState(MainList);
+    const API_URL = 'http://localhost:3500/items'
+
+    const [items, setItems] = useState([]);
 
     const t = 'HI IT YOUR TIME'
     const r = 'OKEY LET STARTED'
     const [newItem, setNewItem] = useState('')
     const [search, setSearch] = useState('')
 
-    const setItemsSave = (newItems) => {
-        localStorage.setItem('shoppinglist', JSON.stringify(newItems));
-    }
+    // useEffect(() => {
+    //     const ret = localStorage.getItem('items') || []
+    //     setItems(JSON.parse(ret))
+    // } , [])
+
+    useEffect(() => {
+       const fetchItems = async () =>{
+        try {
+            const response = await fetch(API_URL);
+            const listItems = await response.json();
+            setItems(listItems)
+            console.log(listItems);
+        } catch (err) {
+            console.log(err.stack);
+        }
+       }
+
+    //    (async () => await fetchItems())();
+
+    }, [])
+
+    // const setItemsSave = (newItems) => {
+    //     localStorage.setItem('MainList', JSON.stringify(newItems));
+    // }
     const AddItem = (item) => {
         const id = items.length ? items[items.length - 1].id + 1 : 1;
         const MyNewItem = { id, checked: false, item };
@@ -91,19 +114,19 @@ const Content = () => {
             </div>
             <p className="content-state conteiner">{state}</p>
             <div className='content conteiner'>
-                
+
                 <p className={state ? ' block-colorText' : ' colorChangeText'}>{info}</p>
                 <h1 onClick={changeClick} className={state ? ' push' : ' pushChange'} >Mor informations</h1>
-               
+
                 <div className="search-header">
                     <div className="search-text">Search:</div>
                     <input id="search-box" onChange={filterBySearch} />
                 </div>
                 <div id="item-list">
                     <ol>
-                   { filteredList.item}
-           
-          
+                        {filteredList.item}
+
+
                     </ol>
                 </div>
                 <AddList
